@@ -9,7 +9,7 @@ export const analyze = async (
   const webpackConfigPath = `${process.env.GITHUB_WORKSPACE}/${configPath}`
 
   core.info(`Reading the webpack config file from ${webpackConfigPath}`)
-  const webpackConfigProd = await import(webpackConfigPath)
+  const {default: webpackConfigProd} = await import(webpackConfigPath)
 
   if (!webpackConfigProd.plugins) {
     webpackConfigProd['plugins'] = []
