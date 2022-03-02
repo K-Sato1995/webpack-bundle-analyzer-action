@@ -1,9 +1,9 @@
 /* eslint-disable sort-imports */
+import * as core from '@actions/core'
+import * as github from '@actions/github'
 import {DOWNLOAD_COMMENT} from './consts'
 import {analyzeBundle} from './analyze-bundle'
-import core from '@actions/core'
 import {createOrUpdateComment} from './create-or-update-comment'
-import github from '@actions/github'
 import {uploadReport} from './upload-artifact'
 import {constructMDTable, isJS, webpackStatsJson} from './utils'
 

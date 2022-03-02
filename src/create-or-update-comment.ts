@@ -1,7 +1,7 @@
+import * as core from '@actions/core'
+import * as github from '@actions/github'
 import {DOWNLOAD_COMMENT} from './consts'
-import core from '@actions/core'
 import type {getOctokit} from '@actions/github'
-import github from '@actions/github'
 
 type Octokit = ReturnType<typeof getOctokit>
 

@@ -1,5 +1,5 @@
+import * as core from '@actions/core'
 import BundleAnalyzerPlugin from 'webpack-bundle-analyzer'
-import core from '@actions/core'
 import webpack from 'webpack'
 
 export const analyzeBundle = async (

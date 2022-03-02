@@ -1,6 +1,6 @@
+import * as artifact from '@actions/artifact'
+import * as core from '@actions/core'
 import {ARTIFACT_NAME} from './consts'
-import artifact from '@actions/artifact'
-import core from '@actions/core'
 
 export const uploadReport = async (
   reportFilename: string
