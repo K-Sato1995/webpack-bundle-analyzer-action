@@ -1,7 +1,7 @@
 /* eslint-disable sort-imports */
 import * as core from '@actions/core'
 import * as github from '@actions/github'
-import {DOWNLOAD_COMMENT} from './consts'
+import {ACTION_PATH, DOWNLOAD_COMMENT} from './consts'
 import {analyzeBundle} from './analyze-bundle'
 import {createOrUpdateComment} from './create-or-update-comment'
 import {uploadReport} from './upload-artifact'
@@ -23,17 +23,17 @@ async function run(): Promise<void> {
     await uploadReport(reportFilename)
 
     if (prNumber) {
-      core.info(`> Pull Request Number ${prNumber}`)
-      const webpackStatsData = await webpackStatsJson('')
+      const pathToStats = `${process.env.GITHUB_WORKSPACE}/dist/stats.json`
+      const webpackStatsData = await webpackStatsJson(pathToStats)
       const jsFiles = webpackStatsData.assets.filter((asset: {name: string}) =>
         isJS(asset.name)
       )
       const mdTable = constructMDTable(jsFiles)
       const markdownComment = `
-      ## Overview
-      ${mdTable}
-      ## Check the detail
-      ${DOWNLOAD_COMMENT}
+## Overview
+${mdTable}
+## Check the detail
+[${DOWNLOAD_COMMENT}](${ACTION_PATH})
       `
       await createOrUpdateComment(octokit, prNumber, markdownComment)
     } else {

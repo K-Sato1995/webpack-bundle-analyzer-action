@@ -5,7 +5,7 @@ const webpackStatsJson = async (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> => {
   const {default: jsonData} = await import(pathToStatsJson)
-  return JSON.parse(jsonData)
+  return JSON.parse(JSON.stringify(jsonData))
 }
 
 const isJS = (fileName: string): boolean => {
