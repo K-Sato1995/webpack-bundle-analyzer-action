@@ -7,6 +7,8 @@ import {createOrUpdateComment} from './create-or-update-comment'
 import {uploadReport} from './upload-artifact'
 import {constructMDTable, webpackStatsJson} from './utils'
 
+process.env.NODE_ENV = 'production'
+
 async function run(): Promise<void> {
   try {
     const configPath: string = core.getInput('webpack-config-path', {
