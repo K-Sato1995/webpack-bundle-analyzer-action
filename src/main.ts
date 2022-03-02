@@ -1,11 +1,11 @@
 /* eslint-disable sort-imports */
 import * as core from '@actions/core'
 import * as github from '@actions/github'
-import {ACTION_PATH, DOWNLOAD_COMMENT} from './consts'
+import {ACTION_PATH, DOWNLOAD_COMMENT, OUTPUT_FILE_PATH} from './consts'
 import {analyzeBundle} from './analyze-bundle'
 import {createOrUpdateComment} from './create-or-update-comment'
 import {uploadReport} from './upload-artifact'
-import {constructMDTable, isJS, webpackStatsJson} from './utils'
+import {constructMDTable, webpackStatsJson} from './utils'
 
 async function run(): Promise<void> {
   try {
@@ -15,20 +15,16 @@ async function run(): Promise<void> {
     const githubToken: string = core.getInput('github-token', {
       required: true
     })
-    const reportFilename: string = core.getInput('report-file-name')
     const octokit = github.getOctokit(githubToken)
     const prNumber = github.context.payload.pull_request?.number
 
-    await analyzeBundle(configPath, reportFilename)
-    await uploadReport(reportFilename)
+    await analyzeBundle(configPath, OUTPUT_FILE_PATH)
+    await uploadReport(OUTPUT_FILE_PATH)
 
     if (prNumber) {
-      const pathToStats = `${process.env.GITHUB_WORKSPACE}/dist/stats.json`
+      const pathToStats = `${process.env.GITHUB_WORKSPACE}/${OUTPUT_FILE_PATH}.json`
       const webpackStatsData = await webpackStatsJson(pathToStats)
-      const jsFiles = webpackStatsData.assets.filter((asset: {name: string}) =>
-        isJS(asset.name)
-      )
-      const mdTable = constructMDTable(jsFiles)
+      const mdTable = constructMDTable(webpackStatsData)
       const markdownComment = `
 ## Overview
 ${mdTable}

@@ -8,10 +8,6 @@ const webpackStatsJson = async (
   return JSON.parse(JSON.stringify(jsonData))
 }
 
-const isJS = (fileName: string): boolean => {
-  return fileName.split('.').pop() === 'js'
-}
-
 const formatBytes = (bytes: number, decimals = 2): string => {
   const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
 
@@ -25,14 +21,16 @@ const formatBytes = (bytes: number, decimals = 2): string => {
 }
 
 const constructMDTable = (dataRows: WebpackAsset[]): string => {
-  const rowStrs = dataRows.map(({name, size}) => {
-    return `| \`${name}\` | ${formatBytes(size)} |`
+  const rowStrs = dataRows.map(({label, statSize, parsedSize, gzipSize}) => {
+    return `| \`${label}\` | ${formatBytes(statSize)} | ${formatBytes(
+      parsedSize
+    )} | ${formatBytes(gzipSize)} |`
   })
 
   return `
-  | Name | Bundle Size(Parsed)  |
-  | ------ | ------ |
+| Name | StatsSize | ParsedSize | GzipSize | 
+| ------ | ------ |  ------ |  ------ |  ------ |
   ${rowStrs.join('\n')}`
 }
 
-export {webpackStatsJson, isJS, formatBytes, constructMDTable}
+export {webpackStatsJson, formatBytes, constructMDTable}

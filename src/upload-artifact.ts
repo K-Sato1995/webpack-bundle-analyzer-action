@@ -6,7 +6,7 @@ export const uploadReport = async (
   reportFilename: string
 ): Promise<artifact.UploadResponse> => {
   const artifactClient = artifact.create()
-  const filePath = `${process.env.GITHUB_WORKSPACE}/${reportFilename}`
+  const filePath = `${process.env.GITHUB_WORKSPACE}/${reportFilename}.html`
 
   core.info(`> Uploading ${filePath}`)
 

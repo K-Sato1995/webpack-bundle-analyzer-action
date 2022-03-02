@@ -19,8 +19,12 @@ export const analyzeBundle = async (
     new BundleAnalyzerPlugin.BundleAnalyzerPlugin({
       analyzerMode: 'static',
       openAnalyzer: false,
-      generateStatsFile: true,
-      reportFilename: `${process.env.GITHUB_WORKSPACE}/${reportFilename}`
+      reportFilename: `${process.env.GITHUB_WORKSPACE}/${reportFilename}.html`
+    }),
+    new BundleAnalyzerPlugin.BundleAnalyzerPlugin({
+      analyzerMode: 'json',
+      openAnalyzer: false,
+      reportFilename: `${process.env.GITHUB_WORKSPACE}/${reportFilename}.json`
     })
   )
 
