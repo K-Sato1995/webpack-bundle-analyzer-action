@@ -2,7 +2,7 @@ import BundleAnalyzerPlugin from 'webpack-bundle-analyzer'
 import core from '@actions/core'
 import webpack from 'webpack'
 
-export const analyze = async (
+export const analyzeBundle = async (
   configPath: string,
   reportFilename: string
 ): Promise<void> => {
