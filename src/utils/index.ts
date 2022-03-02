@@ -1,5 +1,3 @@
-// https://webpack.js.org/api/stats/#chunk-objects
-// https://github.com/webpack-contrib/webpack-bundle-analyzer/issues/61
 import type {WebpackAsset} from '../types'
 
 const webpackStatsJson = async (
