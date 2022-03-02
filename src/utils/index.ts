@@ -29,7 +29,7 @@ const constructMDTable = (dataRows: WebpackAsset[]): string => {
 
   return `
 | Name | StatsSize | ParsedSize | GzipSize | 
-| ------ | ------ |  ------ |  ------ |  ------ |
+| ------ | ------ |  ------ |  ------ |
   ${rowStrs.join('\n')}`
 }
 
