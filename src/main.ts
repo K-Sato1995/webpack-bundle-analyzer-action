@@ -32,7 +32,7 @@ async function run(): Promise<void> {
       const markdownComment = `
 ## Overview
 ${mdTable}
-## Check the detail
+## Check the Report
 [${DOWNLOAD_COMMENT}](${ACTION_PATH})
       `
       await createOrUpdateComment(octokit, prNumber, markdownComment)
